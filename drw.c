@@ -364,7 +364,7 @@ drw_font_getexts(Fnt *font, const char *text, unsigned int len, Extnts *tex)
 
 	XftTextExtentsUtf8(font->dpy, font->xfont, (XftChar8 *)text, len, &ext);
 	tex->h = font->h;
-	tex->w = ext.xOff;
+	tex->w = ext.width;
 }
 
 unsigned int
