@@ -234,6 +234,9 @@ static int xerrordummy(Display *dpy, XErrorEvent *ee);
 static int xerrorstart(Display *dpy, XErrorEvent *ee);
 static void zoom(const Arg *arg);
 
+/* user defined functions */
+static void banishpointer();
+
 /* variables */
 static const char broken[] = "broken";
 static char stext[256];
@@ -2137,4 +2140,11 @@ main(int argc, char *argv[])
 	cleanup();
 	XCloseDisplay(dpy);
 	return EXIT_SUCCESS;
+}
+
+void
+banishpointer(const Arg *arg) {
+	XWarpPointer(dpy, None, root, 0, 0, 0, 0, selmon->ww - borderpx,
+                     selmon->wh + bh - borderpx);
+	XFlush(dpy);
 }
