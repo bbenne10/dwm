@@ -40,6 +40,7 @@
 #include <X11/extensions/Xinerama.h>
 #endif /* XINERAMA */
 #include <X11/Xft/Xft.h>
+#include <time.h>
 
 #include "drw.h"
 #include "util.h"
@@ -707,7 +708,9 @@ dirtomon(int dir)
 void
 drawbar(Monitor *m)
 {
-	int x, xx, w, dx;
+	int dx, x, xx, w, clockw;
+	time_t current;
+	char clock[38];
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
 
@@ -744,13 +747,16 @@ drawbar(Monitor *m)
 		x = m->ww;
 	if ((w = x - xx) > bh) {
 		x = xx;
-		if (m->sel) {
-			drw_text(drw, x, 0, w, bh, m->sel->name, 0);
-			drw_rect(drw, x + 1, 1, dx, dx, m->sel->isfixed, m->sel->isfloating, 0);
-		} else {
-			drw_setscheme(drw, &scheme[SchemeNorm]);
-			drw_rect(drw, x, 0, w, bh, 1, 0, 1);
-		}
+
+		time(&current);
+		strftime(clock, 38, clock_fmt, localtime(&current));
+		clockw = TEXTW(clock);
+
+		drw_text(drw, x, 0, w, bh, "", 0);
+		w = MIN(w, clockw);
+		x = MAX(x, (m->mw / 2) - (clockw / 2));
+		drw_text(drw, x, 0, w, bh, clock, 0);
+
 	}
 	drw_map(drw, m->barwin, 0, 0, m->ww, bh);
 }
