@@ -240,6 +240,8 @@ static void zoom(const Arg *arg);
 
 /* user defined functions */
 static void banishpointer();
+static void grid(Monitor *m);
+static void htile(Monitor *m);
 
 /* variables */
 static const char broken[] = "broken";
@@ -2209,6 +2211,63 @@ main(int argc, char *argv[])
 void
 banishpointer(const Arg *arg) {
 	XWarpPointer(dpy, None, root, 0, 0, 0, 0, selmon->ww - borderpx,
-                     selmon->wh + bh - borderpx);
+			selmon->wh + bh - borderpx);
 	XFlush(dpy);
+}
+
+
+void
+htile(Monitor *m) {
+	unsigned int i, n, w, mh, mx, tx;
+	Client *c;
+
+	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), n++);
+	if(n == 0)
+		return;
+
+	if(n > m->nmaster)
+		mh = m->nmaster ? m->wh * m->mfact : 0;
+	else
+		mh = m->wh;
+
+	for(i = mx = tx = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
+
+		if(i < m->nmaster) {
+			w = (m->ww - mx) / (MIN(n, m->nmaster) - i);
+			resize(c, m->wx + mx, m->wy, w - (2*c->bw) + gappx, mh - (2*c->bw), False);
+			mx += WIDTH(c);
+		} else {
+			w = (m->ww - tx) / (n - i);
+			resize(c, m->wx + tx, m->wy + mh - gappx, w - (2*c->bw) + gappx,
+					m->wh - mh - (2*c->bw) + 2*gappx, False);
+			tx += WIDTH(c);
+		}
+}
+
+void
+grid(Monitor *m) {
+	unsigned int i, n, cx, cy, cw, ch, aw, ah, cols, rows;
+	Client *c;
+
+	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next))
+		n++;
+
+	/* grid dimensions */
+	for(rows = 0; rows <= n/2; rows++)
+		if(rows*rows >= n)
+			break;
+	cols = (rows && (rows - 1) * rows >= n) ? rows - 1 : rows;
+
+	/* window geoms (cell height/width) */
+	ch = m->wh / (rows ? rows : 1);
+	cw = m->ww / (cols ? cols : 1);
+	for(i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next)) {
+		cx = m->wx + (i / rows) * cw;
+		cy = m->wy + (i % rows) * ch;
+		/* adjust height/width of last row/column's windows */
+		ah = ((i + 1) % rows == 0) ? m->wh - ch * rows : 0;
+		aw = (i >= rows * (cols - 1)) ? m->ww - cw * cols : 0;
+		resize(c, cx, cy, cw - 2 * c->bw + aw + gappx, ch - 2 * c->bw + ah + gappx, False);
+		i++;
+	}
 }
