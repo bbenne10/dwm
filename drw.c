@@ -4,6 +4,9 @@
 #include <string.h>
 #include <X11/Xlib.h>
 #include <X11/Xft/Xft.h>
+#include <pango/pango.h>
+#include <pango/pangoxft.h>
+#include <pango/pangofc-fontmap.h>
 
 #include "drw.h"
 #include "util.h"
@@ -111,6 +114,11 @@ drw_font_xcreate(Drw *drw, const char *fontname, FcPattern *fontpattern)
 	XftFont *xfont = NULL;
 	FcPattern *pattern = NULL;
 
+	PangoFontMap *fontmap;
+	PangoContext *context;
+	PangoFontDescription *desc;
+	PangoFontMetrics *metrics;
+
 	if (fontname) {
 		/* Using the pattern found at font->xfont->pattern does not yield same
 		 * the same substitution results as using the pattern returned by
@@ -139,10 +147,22 @@ drw_font_xcreate(Drw *drw, const char *fontname, FcPattern *fontpattern)
 	font = ecalloc(1, sizeof(Fnt));
 	font->xfont = xfont;
 	font->pattern = pattern;
-	font->ascent = xfont->ascent;
-	font->descent = xfont->descent;
+
+	fontmap = pango_xft_get_font_map(drw->dpy, drw->screen);
+	context = pango_font_map_create_context(fontmap);
+	desc = pango_fc_font_description_from_pattern(font->xfont->pattern, TRUE);
+	font->layout = pango_layout_new(context);
+	pango_layout_set_font_description(font->layout, desc);
+
+	metrics = pango_context_get_metrics(context, desc, NULL);
+	font->ascent = pango_font_metrics_get_ascent(metrics) / PANGO_SCALE;
+	font->descent = pango_font_metrics_get_descent(metrics) / PANGO_SCALE;
+
 	font->h = font->ascent + font->descent;
 	font->dpy = drw->dpy;
+
+	pango_font_metrics_unref(metrics);
+	g_object_unref(context);
 
 	return font;
 }
@@ -175,6 +195,10 @@ drw_font_free(Fnt *font)
 		return;
 	if (font->pattern)
 		FcPatternDestroy(font->pattern);
+
+	if(font->layout)
+		g_object_unref(font->layout);
+
 	XftFontClose(font->dpy, font->xfont);
 	free(font);
 }
@@ -290,9 +314,11 @@ drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, const char *tex
 
 				if (render) {
 					th = curfont->ascent + curfont->descent;
-					ty = y + (h / 2) - (th / 2) + curfont->ascent;
+					ty = y + (h / 2) - (th / 2);
 					tx = x + (h / 2);
-					XftDrawStringUtf8(d, invert ? &drw->scheme->bg->rgb : &drw->scheme->fg->rgb, curfont->xfont, tx, ty, (XftChar8 *)buf, len);
+					pango_layout_set_markup(curfont->layout, buf, len);
+					pango_xft_render_layout(d, invert ? &drw->scheme->bg->rgb : &drw->scheme->fg->rgb, curfont->layout, tx * PANGO_SCALE, ty * PANGO_SCALE);
+					pango_layout_set_attributes(curfont->layout, NULL);
 				}
 				x += tex.w;
 				w -= tex.w;
@@ -360,11 +386,13 @@ drw_map(Drw *drw, Window win, int x, int y, unsigned int w, unsigned int h)
 void
 drw_font_getexts(Fnt *font, const char *text, unsigned int len, Extnts *tex)
 {
-	XGlyphInfo ext;
+	PangoRectangle r;
 
-	XftTextExtentsUtf8(font->dpy, font->xfont, (XftChar8 *)text, len, &ext);
-	tex->h = font->h;
-	tex->w = ext.width;
+	pango_layout_set_markup(font->layout, text, len);
+	pango_layout_get_extents(font->layout, 0, &r);
+	pango_layout_set_attributes(font->layout, NULL);
+	tex->h = r.height / PANGO_SCALE;
+	tex->w = r.width / PANGO_SCALE;
 }
 
 unsigned int

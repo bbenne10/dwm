@@ -17,6 +17,7 @@ typedef struct {
 	unsigned int h;
 	XftFont *xfont;
 	FcPattern *pattern;
+	PangoLayout *layout;
 } Fnt;
 
 typedef struct {
