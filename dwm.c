@@ -1735,13 +1735,18 @@ tile(Monitor *m) {
 			sfacts += c->cfact;
 	}
 
-	if(n == 0)
+	if(n == 0) {
 		return;
+	} else if(n == 1) {
+		monocle(m);
+		return;
+	}
 
 	if(n > m->nmaster)
 		mw = m->nmaster ? m->ww * m->mfact : 0;
 	else
 		mw = m->ww;
+
 	for(i = my = ty = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next), i++)
 		if(i < m->nmaster) {
 			h = (m->wh - my) * (c->cfact / mfacts) + gappx;
