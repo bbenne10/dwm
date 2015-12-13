@@ -316,7 +316,7 @@ drw_text(Drw *drw, int x, int y, unsigned int w, unsigned int h, const char *tex
 					th = curfont->ascent + curfont->descent;
 					ty = y + (h / 2) - (th / 2);
 					tx = x + (h / 2);
-					pango_layout_set_markup(curfont->layout, buf, len);
+					pango_layout_set_markup(curfont->layout, buf, -1);
 					pango_xft_render_layout(d, invert ? &drw->scheme->bg->rgb : &drw->scheme->fg->rgb, curfont->layout, tx * PANGO_SCALE, ty * PANGO_SCALE);
 					pango_layout_set_attributes(curfont->layout, NULL);
 				}

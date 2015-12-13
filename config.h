@@ -5,7 +5,8 @@
 
 /* appearance */
 static const char *fonts[] = {
-	"Input:size=9"
+	"Input:size=9",
+	"Icons:size=9"
 };
 static const char dmenufont[]       = "Input:size=9";
 static const char normbordercolor[] = "#263238";
