@@ -82,52 +82,58 @@ static const char *media_nxt[]  = { "/home/bryan/.bin/mediactl", "next", NULL };
 
 static const char *lock_cmd[]   = { "sxlock", NULL };
 
+static const char *emacs[] = {"emacsclient", "-c", NULL, NULL, "Emacs"};
+
 static Key keys[] = {
-	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = term } },
-	{ MODKEY|ControlMask,           XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-  { MODKEY|ShiftMask,             XK_h,      setcfact,       {.f = +0.05} },
-  { MODKEY|ShiftMask,             XK_l,      setcfact,       {.f = -0.05} },
-  { MODKEY|ShiftMask,             XK_o,      setcfact,       {.f = 0} },
-	{ MODKEY,                       XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-  { MODKEY,                       XK_b,      setlayout,      {.v = &layouts[3]} },
-  { MODKEY,                       XK_g,      setlayout,      {.v = &layouts[4]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-  { MODKEY|ShiftMask,             XK_b,      banishpointer, {0} },
-  { 0,            XF86XK_AudioLowerVolume,   spawn,          { .v = vol_dwn } },
-  { 0,            XF86XK_AudioRaiseVolume,   spawn,          { .v = vol_up  } },
-  { 0,            XF86XK_AudioMute,          spawn,          { .v = vol_mut } },
+	/* modifier            key                      function        argument */
+	{ MODKEY,              XK_p,                    spawn,          {.v = dmenucmd } },
+	{ MODKEY|ShiftMask,    XK_Return,               spawn,          {.v = term } },
+	{ MODKEY|ControlMask,  XK_b,                    togglebar,      {0} },
+	{ MODKEY,              XK_j,                    focusstack,     {.i = +1 } },
+	{ MODKEY,              XK_k,                    focusstack,     {.i = -1 } },
+	{ MODKEY,              XK_i,                    incnmaster,     {.i = +1 } },
+	{ MODKEY,              XK_d,                    incnmaster,     {.i = -1 } },
+	{ MODKEY,              XK_h,                    setmfact,       {.f = -0.05} },
+	{ MODKEY,              XK_l,                    setmfact,       {.f = +0.05} },
+  { MODKEY|ShiftMask,    XK_h,                    setcfact,       {.f = +0.05} },
+  { MODKEY|ShiftMask,    XK_l,                    setcfact,       {.f = -0.05} },
+  { MODKEY|ShiftMask,    XK_o,                    setcfact,       {.f = 0} },
+	{ MODKEY,              XK_Return,               zoom,           {0} },
+	{ MODKEY,              XK_Tab,                  view,           {0} },
+	{ MODKEY|ShiftMask,    XK_c,                    killclient,     {0} },
+	{ MODKEY,              XK_t,                    setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,              XK_f,                    setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,              XK_m,                    setlayout,      {.v = &layouts[2]} },
+  { MODKEY,              XK_b,                    setlayout,      {.v = &layouts[3]} },
+  { MODKEY,              XK_g,                    setlayout,      {.v = &layouts[4]} },
+	{ MODKEY,              XK_space,                setlayout,      {0} },
+	{ MODKEY|ShiftMask,    XK_space,                togglefloating, {0} },
+	{ MODKEY,              XK_0,                    view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,    XK_0,                    tag,            {.ui = ~0 } },
+	{ MODKEY,              XK_comma,                focusmon,       {.i = -1 } },
+	{ MODKEY,              XK_period,               focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,    XK_comma,                tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,    XK_period,               tagmon,         {.i = +1 } },
+	TAGKEYS(               XK_1,                                    0)
+	TAGKEYS(               XK_2,                                    1)
+	TAGKEYS(               XK_3,                                    2)
+	TAGKEYS(               XK_4,                                    3)
+	{ MODKEY|ShiftMask,    XK_q,                    quit,           {0} },
+  { MODKEY|ShiftMask,    XK_b,                    banishpointer,  {0} },
 
-  { 0,            XF86XK_AudioPlay,          spawn,          { .v = media_tog } },
-  { 0,            XF86XK_AudioNext,          spawn,          { .v = media_nxt } },
-  { 0,            XF86XK_AudioPrev,          spawn,          { .v = media_prv } },
-  { 0,            XF86XK_AudioStop,          spawn,          { .v = ztream } },
+  { 0,                   XF86XK_AudioLowerVolume, spawn,          { .v = vol_dwn } },
+  { 0,                   XF86XK_AudioRaiseVolume, spawn,          { .v = vol_up  } },
+  { 0,                   XF86XK_AudioMute,        spawn,          { .v = vol_mut } },
 
-  { ControlMask|MODKEY,           XK_space,  spawn,          { .v = lock_cmd } },
+  { 0,                   XF86XK_AudioPlay,        spawn,          { .v = media_tog } },
+  { 0,                   XF86XK_AudioNext,        spawn,          { .v = media_nxt } },
+  { 0,                   XF86XK_AudioPrev,        spawn,          { .v = media_prv } },
+  { 0,                   XF86XK_AudioStop,        spawn,          { .v = ztream } },
+
+  { MODKEY,              XK_e,                    runorraise,     { .v = emacs } },
+
+  { ControlMask|MODKEY,  XK_space,                spawn,          { .v = lock_cmd } },
+
 };
 
 /* button definitions */
