@@ -6,10 +6,10 @@
 
 /* appearance */
 static const char *fonts[] = {
-	"Input:size=9",
-	"Icons:size=9"
+	"Knack:size=10",
+	"Icons:size=10"
 };
-static const char dmenufont[]       = "Input:size=9";
+static const char dmenufont[]       = "Knack:size=10";
 static const char normbordercolor[] = "#263238";
 static const char normbgcolor[]     = "#263238";
 static const char normfgcolor[]     = "#ffffff";
