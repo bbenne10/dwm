@@ -3,20 +3,19 @@
 #include <X11/Xft/Xft.h>
 #include <X11/XF86keysym.h>
 
-
 /* appearance */
 static const char *fonts[] = {
-	"Knack:size=10",
+	"Iosevka:size=10",
 	"Icons:size=10"
 };
-static const char dmenufont[]       = "Knack:size=10";
-static const char normbordercolor[] = "#263238";
-static const char normbgcolor[]     = "#263238";
-static const char normfgcolor[]     = "#ffffff";
-static const char selbordercolor[]  = "#B8BB26";
-static const char selbgcolor[]      = "#B8BB26";
-static const char selfgcolor[]      = "#263238";
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const char dmenufont[]       = "Iosevka:size=10";
+static const char normbordercolor[] = "#262626";
+static const char normbgcolor[]     = "#262626";
+static const char normfgcolor[]     = "#BDBDB3";
+static const char selbordercolor[]  = "#EEAD0E";
+static const char selbgcolor[]      = "#EEAD0E";
+static const char selfgcolor[]      = "#262626";
+static const unsigned int borderpx  = 4;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
