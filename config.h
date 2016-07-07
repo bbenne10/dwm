@@ -8,7 +8,7 @@ static const char *fonts[] = {
 	"Iosevka:size=10",
 	"Icons:size=10"
 };
-static const char dmenufont[]       = "Iosevka:size=10";
+static const char dmenufont[]       = "Iosevka 12";
 static const char normbordercolor[] = "#262626";
 static const char normbgcolor[]     = "#262626";
 static const char normfgcolor[]     = "#BDBDB3";
