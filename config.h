@@ -84,7 +84,8 @@ static const char *media_stp[]  = { "/home/bryan/.bin/mediactl", "stop", NULL };
 static const char *media_prv[]  = { "/home/bryan/.bin/mediactl", "prev", NULL };
 static const char *media_nxt[]  = { "/home/bryan/.bin/mediactl", "next", NULL };
 
-static const char *lock_cmd[]   = { "sxlock", NULL };
+
+static const char *lock_cmd[]   = { "/home/bryan/.bin/lock_screen", NULL };
 
 static const char *emacs[] = {"emacsclient", "-c", NULL, NULL, "Emacs"};
 
