@@ -47,8 +47,8 @@ static const Layout layouts[] = {
 	{ "[T]",      tile },    /* first entry is default */
 	{ "[F]",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
-  { "[B]",      htile },
-  { "[G]",      grid },
+	{ "[B]",      htile },
+	{ "[G]",      grid },
 };
 
 /* key definitions */
@@ -65,14 +65,14 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgcolor,
-                                  "-nf", normfgcolor, "-sb", selbgcolor,
-                                  "-sf", selfgcolor, "-l", "10",
-                                  // now custom stuff patched into dmenu
-                                  "-x", ".225", "-y", "25", "-w", ".5",
-                                  NULL };
+	"-nf", normfgcolor, "-sb", selbgcolor,
+	"-sf", selfgcolor, "-l", "10",
+	// now custom stuff patched into dmenu
+	"-x", ".225", "-y", "25", "-w", ".5",
+	NULL };
 
 static const char *ztream[] = { "/home/bryan/.bin/ztream", "-fn", dmenufont, "-nb", normbgcolor,
-    "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
+	"-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *term[]    = { "/home/bryan/.bin/st", NULL };
 
 static const char *vol_up[]  = { "amixer", "-q", "sset", "Master", "5%+", "unmute", NULL };
@@ -99,17 +99,17 @@ static Key keys[] = {
 	{ MODKEY,              XK_d,                    incnmaster,     {.i = -1 } },
 	{ MODKEY,              XK_h,                    setmfact,       {.f = -0.05} },
 	{ MODKEY,              XK_l,                    setmfact,       {.f = +0.05} },
-  { MODKEY|ShiftMask,    XK_h,                    setcfact,       {.f = +0.05} },
-  { MODKEY|ShiftMask,    XK_l,                    setcfact,       {.f = -0.05} },
-  { MODKEY|ShiftMask,    XK_o,                    setcfact,       {.f = 0} },
+	{ MODKEY|ShiftMask,    XK_h,                    setcfact,       {.f = +0.05} },
+	{ MODKEY|ShiftMask,    XK_l,                    setcfact,       {.f = -0.05} },
+	{ MODKEY|ShiftMask,    XK_o,                    setcfact,       {.f = 0} },
 	{ MODKEY,              XK_Return,               zoom,           {0} },
 	{ MODKEY,              XK_Tab,                  view,           {0} },
 	{ MODKEY|ShiftMask,    XK_c,                    killclient,     {0} },
 	{ MODKEY,              XK_t,                    setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,              XK_f,                    setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,              XK_m,                    setlayout,      {.v = &layouts[2]} },
-  { MODKEY,              XK_b,                    setlayout,      {.v = &layouts[3]} },
-  { MODKEY,              XK_g,                    setlayout,      {.v = &layouts[4]} },
+	{ MODKEY,              XK_b,                    setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,              XK_g,                    setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,              XK_space,                setlayout,      {0} },
 	{ MODKEY|ShiftMask,    XK_space,                togglefloating, {0} },
 	{ MODKEY,              XK_0,                    view,           {.ui = ~0 } },
@@ -123,20 +123,20 @@ static Key keys[] = {
 	TAGKEYS(               XK_3,                                    2)
 	TAGKEYS(               XK_4,                                    3)
 	{ MODKEY|ShiftMask,    XK_q,                    quit,           {0} },
-  { MODKEY|ShiftMask,    XK_b,                    banishpointer,  {0} },
+	{ MODKEY|ShiftMask,    XK_b,                    banishpointer,  {0} },
 
-  { 0,                   XF86XK_AudioLowerVolume, spawn,          { .v = vol_dwn } },
-  { 0,                   XF86XK_AudioRaiseVolume, spawn,          { .v = vol_up  } },
-  { 0,                   XF86XK_AudioMute,        spawn,          { .v = vol_mut } },
+	{ 0,                   XF86XK_AudioLowerVolume, spawn,          { .v = vol_dwn } },
+	{ 0,                   XF86XK_AudioRaiseVolume, spawn,          { .v = vol_up  } },
+	{ 0,                   XF86XK_AudioMute,        spawn,          { .v = vol_mut } },
 
-  { 0,                   XF86XK_AudioPlay,        spawn,          { .v = media_tog } },
-  { 0,                   XF86XK_AudioNext,        spawn,          { .v = media_nxt } },
-  { 0,                   XF86XK_AudioPrev,        spawn,          { .v = media_prv } },
-  { 0,                   XF86XK_AudioStop,        spawn,          { .v = ztream } },
+	{ 0,                   XF86XK_AudioPlay,        spawn,          { .v = media_tog } },
+	{ 0,                   XF86XK_AudioNext,        spawn,          { .v = media_nxt } },
+	{ 0,                   XF86XK_AudioPrev,        spawn,          { .v = media_prv } },
+	{ 0,                   XF86XK_AudioStop,        spawn,          { .v = ztream } },
 
-  { MODKEY,              XK_e,                    runorraise,     { .v = emacs } },
+	{ MODKEY,              XK_e,                    runorraise,     { .v = emacs } },
 
-  { ControlMask|MODKEY,  XK_space,                spawn,          { .v = lock_cmd } },
+	{ ControlMask|MODKEY,  XK_space,                spawn,          { .v = lock_cmd } },
 
 };
 
