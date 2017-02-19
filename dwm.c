@@ -1985,15 +1985,23 @@ updatebars(void)
 		.background_pixmap = ParentRelative,
 		.event_mask = ButtonPressMask|ExposureMask
 	};
+
+	XClassHint* clshint = XAllocClassHint();
+	clshint->res_name = "dwmStatusBar";
+	clshint->res_class = "dwmStatusBar";
+
 	for (m = mons; m; m = m->next) {
 		if (m->barwin)
 			continue;
 		m->barwin = XCreateWindow(dpy, root, m->wx, m->by, m->ww, bh, 0, DefaultDepth(dpy, screen),
 		                          CopyFromParent, DefaultVisual(dpy, screen),
 		                          CWOverrideRedirect|CWBackPixmap|CWEventMask, &wa);
+		XStoreName(dpy, m->barwin, clshint->res_name);
+		XSetClassHint(dpy, m->barwin, clshint);
 		XDefineCursor(dpy, m->barwin, cursor[CurNormal]->cursor);
 		XMapRaised(dpy, m->barwin);
 	}
+	XFree(clshint);
 }
 
 void
