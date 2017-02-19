@@ -84,6 +84,8 @@ static const char *media_stp[]  = { "/home/bryan/.bin/mediactl", "stop", NULL };
 static const char *media_prv[]  = { "/home/bryan/.bin/mediactl", "prev", NULL };
 static const char *media_nxt[]  = { "/home/bryan/.bin/mediactl", "next", NULL };
 
+static const char *bright_up[]  = { "xbacklight", "+3%", NULL };
+static const char *bright_dwn[] = { "xbacklight", "-3%", NULL };
 
 static const char *lock_cmd[]   = { "/home/bryan/.bin/lock_screen", NULL };
 
@@ -133,7 +135,9 @@ static Key keys[] = {
 	{ 0,                   XF86XK_AudioPlay,        spawn,          { .v = media_tog } },
 	{ 0,                   XF86XK_AudioNext,        spawn,          { .v = media_nxt } },
 	{ 0,                   XF86XK_AudioPrev,        spawn,          { .v = media_prv } },
-	{ 0,                   XF86XK_AudioStop,        spawn,          { .v = ztream } },
+
+	{ 0,                   XF86XK_MonBrightnessUp,  spawn,          { .v = bright_up} },
+	{ 0,                   XF86XK_MonBrightnessDown,spawn,          { .v = bright_dwn } },
 
 	{ MODKEY,              XK_e,                    runorraise,     { .v = emacs } },
 
