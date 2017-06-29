@@ -5,22 +5,21 @@
 
 /* appearance */
 static const char *fonts[] = {
-	"Iosevka:size=10",
+	"Hasklig:size=10",
 	"Icons:size=10"
 };
-static const char dmenufont[]       = "Iosevka:size=12";
-static const char normbordercolor[] = "#1d1f21";
-static const char normbgcolor[]     = "#1d1f21";
-static const char normfgcolor[]     = "#e0e0e0";
-static const char selbordercolor[]  = "#8abeb7";
-static const char selbgcolor[]      = "#8abeb7";
-static const char selfgcolor[]      = "#1d1f21";
-static const unsigned int borderpx  = 4;        /* border pixel of windows */
+static const char dmenufont[]       = "Hasklig:size=10";
+static const char normbordercolor[] = "#282828";
+static const char normbgcolor[]     = "#282828";
+static const char normfgcolor[]     = "#ebdbb2";
+static const char selbordercolor[]  = "#8ec07c";
+static const char selbgcolor[]      = "#8ec07c";
+static const char selfgcolor[]      = "#282828";
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const int gappx              = 8;
-
+static const int gappx              = 16;
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "4" };
@@ -75,9 +74,9 @@ static const char *ztream[] = { "/home/bryan/.bin/ztream", "-fn", dmenufont, "-n
 	"-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *term[]    = { "/home/bryan/.bin/st", NULL };
 
-static const char *vol_up[]  = { "amixer", "-q", "sset", "Master", "5%+", "unmute", NULL };
-static const char *vol_dwn[] = { "amixer", "-q", "sset", "Master", "5%-", "unmute", NULL };
-static const char *vol_mut[] = { "amixer", "-q", "sset", "Master", "toggle", NULL };
+static const char *vol_up[]  = { "pamixer", "set-sink-volume", "0", "+5%", NULL };
+static const char *vol_dwn[] = { "pamixer", "set-sink-volume", "0", "-5%", NULL };
+static const char *vol_mut[] = { "pamixer", "set-sink-mute", "0", "toggle", NULL };
 
 static const char *media_tog[]  = { "/home/bryan/.bin/mediactl", "toggle", NULL };
 static const char *media_stp[]  = { "/home/bryan/.bin/mediactl", "stop", NULL };
