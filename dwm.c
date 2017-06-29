@@ -1990,6 +1990,9 @@ updatebars(void)
 	clshint->res_name = "dwmStatusBar";
 	clshint->res_class = "dwmStatusBar";
 
+	Atom atomWinType = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE", False);
+	Atom atomWinVal= XInternAtom(dpy, "_NET_WM_WINDOW_TYPE_DOCK", False);
+
 	for (m = mons; m; m = m->next) {
 		if (m->barwin)
 			continue;
@@ -1999,6 +2002,7 @@ updatebars(void)
 		XStoreName(dpy, m->barwin, clshint->res_name);
 		XSetClassHint(dpy, m->barwin, clshint);
 		XDefineCursor(dpy, m->barwin, cursor[CurNormal]->cursor);
+		XChangeProperty(dpy, m->barwin, atomWinType, XA_ATOM, 32, PropModeReplace, (unsigned char*)(&atomWinVal), 1);
 		XMapRaised(dpy, m->barwin);
 	}
 	XFree(clshint);
