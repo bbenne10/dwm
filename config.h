@@ -72,7 +72,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgco
 
 static const char *ztream[] = { "/home/bryan/.bin/ztream", "-fn", dmenufont, "-nb", normbgcolor,
 	"-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *term[]    = { "/home/bryan/.bin/st", NULL };
+static const char *term[]    = { "urxvt", NULL };
 
 static const char *vol_up[]  = { "pamixer", "set-sink-volume", "0", "+5%", NULL };
 static const char *vol_dwn[] = { "pamixer", "set-sink-volume", "0", "-5%", NULL };
