@@ -774,26 +774,39 @@ dirtomon(int dir)
 void
 drawbar(Monitor *m)
 {
-	int dx, x, xx, w, clockw;
+	int x, xx, w, clockw;
 	time_t current;
 	char clock[38];
 	unsigned int i, occ = 0, urg = 0;
 	Client *c;
 
-	dx = (drw->fonts[0]->ascent + drw->fonts[0]->descent + 2) / 4;
+	// dx = (drw->fonts[0]->ascent + drw->fonts[0]->descent + 2) / 4;
 
 	for (c = m->clients; c; c = c->next) {
 		occ |= c->tags;
 		if (c->isurgent)
 			urg |= c->tags;
 	}
+
 	x = 0;
+	ClrScheme clrs;
+	clrs.bg = scheme[SchemeSel].fg;
+	clrs.fg = scheme[SchemeSel].bg;
+
 	for (i = 0; i < LENGTH(tags); i++) {
 		w = TEXTW(tags[i]);
-		drw_setscheme(drw, m->tagset[m->seltags] & 1 << i ? &scheme[SchemeSel] : &scheme[SchemeNorm]);
-		drw_text(drw, x, 0, w, bh, tags[i], urg & 1 << i);
-		drw_rect(drw, x + 1, 1, dx, dx, m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
-		           occ & 1 << i, urg & 1 << i);
+
+		// if the tag is viewed, switch the scheme
+		if (m->tagset[m->seltags] & 1 << i) {
+			drw_setscheme(drw, &clrs);
+		} else {
+			drw_setscheme(drw, &scheme[SchemeNorm]);
+		}
+
+		const char * icon = (occ & 1 << i) ? "" : "";
+
+		drw_text(drw, x, 0, w, bh, icon, urg & 1 << i);
+
 		x += w;
 	}
 	w = blw = TEXTW(m->ltsymbol);

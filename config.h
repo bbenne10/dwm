@@ -6,7 +6,7 @@
 /* appearance */
 static const char *fonts[] = {
 	"Hasklig:size=10",
-	"Icons:size=10"
+	"FontAwesome:size=10"
 };
 static const char dmenufont[]       = "Hasklig:size=10";
 static const char normbordercolor[] = "#282828";
@@ -22,7 +22,7 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const int gappx              = 16;
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4" };
+static const char *tags[] = { "", "", "", "" };
 
 static const Rule rules[] = {
 	/* xprop(1):
