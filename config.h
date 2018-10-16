@@ -71,6 +71,11 @@ static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgco
 static const char *ztream[] = { "/home/bryan/.bin/ztream", "-fn", dmenufont, "-nb", normbgcolor,
 	"-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
 static const char *term[]    = { "urxvt", NULL };
+static const char *passmenucmd[] = { "/home/bryan/.bin/passmenu",
+                                     "-fn", dmenufont, "-nb", normbgcolor,
+                                     "-nf", normfgcolor, "-sb", selbgcolor,
+                                     "-sf", selfgcolor, "-l", "10",
+                                     NULL };
 
 static const char *vol_up[]  = { "pamixer", "set-sink-volume", "0", "+5%", NULL };
 static const char *vol_dwn[] = { "pamixer", "set-sink-volume", "0", "-5%", NULL };
@@ -90,7 +95,8 @@ static const char *emacs[] = {"emacsclient", "-c", NULL, NULL, "Emacs"};
 
 static Key keys[] = {
 	/* modifier            key                      function        argument */
-	{ MODKEY,              XK_p,                    spawn,          {.v = dmenucmd } },
+	{ MODKEY,              XK_space,                spawn,          {.v = dmenucmd } },
+	{ MODKEY,              XK_p,                    spawn,          {.v = passmenucmd} },
 	{ MODKEY|ShiftMask,    XK_Return,               spawn,          {.v = term } },
 	{ MODKEY|ControlMask,  XK_b,                    togglebar,      {0} },
 	{ MODKEY,              XK_j,                    focusstack,     {.i = +1 } },
@@ -110,8 +116,6 @@ static Key keys[] = {
 	{ MODKEY,              XK_m,                    setlayout,      {.v = &layouts[2]} },
 	{ MODKEY,              XK_b,                    setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,              XK_g,                    setlayout,      {.v = &layouts[4]} },
-	{ MODKEY,              XK_space,                setlayout,      {0} },
-	{ MODKEY|ShiftMask,    XK_space,                togglefloating, {0} },
 	{ MODKEY,              XK_0,                    view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,    XK_0,                    tag,            {.ui = ~0 } },
 	{ MODKEY,              XK_comma,                focusmon,       {.i = -1 } },
