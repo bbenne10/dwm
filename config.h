@@ -5,17 +5,17 @@
 
 /* appearance */
 static const char *fonts[] = {
-	"Hasklig:size=10",
+	"Hack:size=9",
 	"FontAwesome:size=10"
 };
-static const char dmenufont[]       = "Hasklig:size=10";
-static const char normbordercolor[] = "#282828";
-static const char normbgcolor[]     = "#282828";
-static const char normfgcolor[]     = "#ebdbb2";
-static const char selbordercolor[]  = "#8ec07c";
-static const char selbgcolor[]      = "#8ec07c";
-static const char selfgcolor[]      = "#282828";
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const char dmenufont[]       = "Hack:size=9";
+static const char normbordercolor[] = "#2E3440";
+static const char normbgcolor[]     = "#2E3440";
+static const char normfgcolor[]     = "#E5E9F0";
+static const char selbordercolor[]  = "#88C0D0";
+static const char selbgcolor[]      = "#88C0D0";
+static const char selfgcolor[]      = "#2E3440";
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
