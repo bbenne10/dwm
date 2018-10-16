@@ -66,8 +66,6 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-fn", dmenufont, "-nb", normbgcolor,
 	"-nf", normfgcolor, "-sb", selbgcolor,
 	"-sf", selfgcolor, "-l", "10",
-	// now custom stuff patched into dmenu
-	"-x", ".225", "-y", "25", "-w", ".5",
 	NULL };
 
 static const char *ztream[] = { "/home/bryan/.bin/ztream", "-fn", dmenufont, "-nb", normbgcolor,
